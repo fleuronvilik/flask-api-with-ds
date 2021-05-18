@@ -6,6 +6,9 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 import linked_list
+# import hash_table
+import binary_search_tree
+import random
 
 # app
 app = Flask(__name__)
@@ -109,6 +112,55 @@ def delete_user(user_id):
   db.session.delete(user)
   db.session.commit()
   return jsonify({"message": "User deleted"}), 200
+
+@app.route("/blog_post/<user_id>", methods=["POST"])
+def create_blog_post(user_id):
+  data = request.get_json()
+
+  user = User.query.filter_by(id=user_id).first()
+  if user is None:
+    return jsonify({"message": "user does not exist"}), 400
+  # ht = hash_table.HashTable(10)
+  # ht.add_key_value("title", data["title"])
+  # ht.add_key_value("body", data["body"])
+  # ht.add_key_value("date", now)
+  # ht.add_key_value("user_id", user_id)
+  # print(ht)
+
+  # print(ht.get_value("title"))
+  # print(ht.get_value("body"))
+  # print(ht.get_value("date"))
+  # print(ht.get_value("user_id"))
+  new_blog_post = BlogPost(
+    title=data["title"],
+    body=data["body"],
+    date=now,
+    user_id=user_id,
+  )
+  db.session.add(new_blog_post)
+  db.session.commit()
+  return jsonify({"message": "new blog post created"}), 200
+
+@app.route("/blog_post/<blog_post_id>", methods=["GET"])
+def get_one_blog_post(blog_post_id):
+  blog_posts = BlogPost.query.all()
+  random.shuffle(blog_posts)
+
+  bst = binary_search_tree.BlogPostBST()
+  for post in blog_posts:
+    bst.insert({
+      "id": post.id,
+      "title": post.title,
+      "body": post.body,
+      "date": post.date,
+      "user_id": post.user_id
+    })
+
+  post = bst.search(blog_post_id)
+
+  if not post:
+    return jsonify({"message": "post not found"}), 400
+  return jsonify(post)
 
 if __name__ == "__main__":
   app.run(debug=True)
