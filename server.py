@@ -9,6 +9,7 @@ import linked_list
 # import hash_table
 import binary_search_tree
 import random
+import custom_q
 
 # app
 app = Flask(__name__)
@@ -161,6 +162,26 @@ def get_one_blog_post(blog_post_id):
   if not post:
     return jsonify({"message": "post not found"}), 400
   return jsonify(post)
+
+@app.route('/blog_post/numeric_body', methods=["GET"])
+def get_numeric_bodies():
+  posts = BlogPost.query.all()
+
+  q, arr = custom_q.Queue(), []
+  for post in posts:
+    q.enqueue(post)
+  for _ in range(len(posts)):
+    post = q.dequeue()
+    numeric_body = 0
+    for char in post.body:
+      numeric_body += ord(char)
+    arr.append({
+      "id": post.id,
+      "body": numeric_body,
+      "date": post.date,
+      "user_id": post.user_id
+    })
+  return jsonify(arr), 200
 
 if __name__ == "__main__":
   app.run(debug=True)
