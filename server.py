@@ -10,6 +10,7 @@ import linked_list
 import binary_search_tree
 import random
 import custom_q
+import stack
 
 # app
 app = Flask(__name__)
@@ -182,6 +183,18 @@ def get_numeric_bodies():
       "user_id": post.user_id
     })
   return jsonify(arr), 200
+
+@app.route('/blog_post/delete_last_ten', methods=["DELETE"])
+def delete_last_ten():
+  posts = BlogPost.query.all()
+  st = stack.Stack()
+  for post in posts:
+    st.push(post)
+  for _ in range(10):
+    post = st.pop()
+    db.session.delete(post)
+    db.session.commit()
+  return jsonify({"message":"success"})
 
 if __name__ == "__main__":
   app.run(debug=True)
