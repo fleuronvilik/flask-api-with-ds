@@ -1,7 +1,4 @@
-class Node:
-  def __init__(self, data=None, next=None):
-    self.data = data
-    self.next = next
+from ds import Node1
 
 class LinkedList:
   def __init__(self):
@@ -9,7 +6,7 @@ class LinkedList:
     self.tail = None
 
   def add(self, data):
-    new_head = Node(data, self.head)
+    new_head = Node1(data, self.head)
     if self.head is None:
       self.tail = new_head
     self.head = new_head
@@ -18,7 +15,7 @@ class LinkedList:
     if self.tail is None:
       self.add(data) # self.head = new_tail
     else:
-      new_tail = Node(data)
+      new_tail = Node1(data)
       self.tail.next = new_tail
       self.tail = new_tail
 

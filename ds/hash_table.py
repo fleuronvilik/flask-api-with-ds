@@ -1,7 +1,8 @@
-class Node:
-  def __init__(self, data=None, next=None):
-    self.data = data
-    self.next = next
+from ds import Node1
+# class Node:
+#   def __init__(self, data=None, next=None):
+#     self.data = data
+#     self.next = next
 class Data:
   def __init__(self, key, value):
     self.key = key
@@ -19,7 +20,7 @@ class HashTable:
     return hashed_key
   
   def add_key_value(self, key, value):
-    new_node = Node(Data(key, value))
+    new_node = Node1(Data(key, value))
     hashed_key = self.custom_hash(key)
     if self.hash_table[hashed_key] is None:
       self.hash_table[hashed_key] = new_node

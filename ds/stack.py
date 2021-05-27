@@ -1,7 +1,5 @@
-class Node:
-  def __init__(self, data, next=None):
-    self.data = data
-    self.next = next
+from ds import Node1
+
 class Stack:
   def __init__(self):
     self.top = None
@@ -10,7 +8,7 @@ class Stack:
       return self.top.data
   def push(self, data):
     next_node = self.top
-    self.top = Node(data, next_node)
+    self.top = Node1(data, next_node)
   def pop(self):
     if self.top:
       removed = self.top

@@ -1,7 +1,8 @@
-class Node:
-  def __init__(self, data):
-    self.data = data
-    self.next = None
+from ds import Node1
+# class Node:
+#   def __init__(self, data):
+#     self.data = data
+#     self.next = None
 
 class Queue:
   def __init__(self):
@@ -9,7 +10,7 @@ class Queue:
     self.tail = None
 
   def enqueue(self, data):
-    tail = Node(data)
+    tail = Node1(data)
     if self.tail is None:
       self.head = self.tail = tail
     else:
