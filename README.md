@@ -23,6 +23,7 @@ db.create_all()
 
 3. There is a sqlite database file named __[sqlitedb.file](https://github.com/fleuronvilik/flask-api-with-ds/blob/8b413cad443bc0396f43690bb4dec6f614f41957/blog/__init__.py#L9)__ in the blog subfolder.
 `ls blog` or `ls blog/sqlitedb.file` to check.
+4. Run `python generate_dummy_data.py` in the terminal
 
 ## Running locally
 
